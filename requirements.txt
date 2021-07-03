@@ -1,5 +1,5 @@
 numpy
 streamlit 
 tensorflow 
-skimage
+scikit-image
 Cython
