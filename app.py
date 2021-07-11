@@ -41,11 +41,11 @@ try:
 
   if choice == 'Upload Image':
     img = st.file_uploader('Upload an Image')
-    if img == None:
-      st.markdown('Upload Image')
-    else:
-      img = Image.open(img)
-      img = np.array(img)/255
+    try:
+        img = Image.open(img)
+        img = np.array(img)/255
+    except:
+        st.markdown('Upload a valid image')
 
   n = 3
   noise = np.random.normal(scale = sigma, size = (img.shape))  
