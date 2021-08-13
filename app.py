@@ -14,7 +14,7 @@ from PIL import Image
 def PSNR(y_true, y_pred): 
   score = tf.image.psnr(y_true, y_pred, 1)
   return score
-n = 2
+
 model = load_model('model_3.h5', compile = False, custom_objects = {'EAM' : EAM_layer.eam_layer()})
 opt = Adam(0.0001)
 model.compile(opt, loss = 'mae', metrics = psnr)
@@ -42,12 +42,12 @@ try:
   if choice == 'Upload Image':
     img = st.file_uploader('Upload an Image')
     try:
-        img = Image.open(img)
-        img = np.array(img)/255
+      img = Image.open(img)
+      img = np.array(img)/255
+      img = resize(img, (256, 256))
     except:
         st.markdown('Upload a valid image')
 
-  n = 3
   noise = np.random.normal(scale = sigma, size = (img.shape))  
   img = img + noise
   img = np.clip(img, 0, 1)
