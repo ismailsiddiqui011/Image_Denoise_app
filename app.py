@@ -22,13 +22,6 @@ model.compile(opt, loss = 'mae', metrics = psnr)
 st.title('Image Denoiser')
 st.image('https://c.vanceai.com/assets/images/denoise_ai/denoise_mobile.jpg', width = 500)
 
-sigma = st.text_input('Enter the Noise level (Sigma)...')
-try:
-  sigma = float(sigma)
-except:
-  st.markdown('Not a valid value, using 0 as value...')
-  sigma = 0
-
 choice = st.selectbox('Choose one of the following', ('URL', 'Upload Image'))
 try:
   if choice == 'URL':
@@ -48,12 +41,8 @@ try:
     except:
         st.markdown('Upload a valid image')
 
-  noise = np.random.normal(scale = sigma, size = (img.shape))  
-  img = img + noise
-  img = np.clip(img, 0, 1)
-
   pred = model.predict(np.expand_dims(img, 0))[0]
   pred = np.clip(pred, 0, 1)
-  st.image([img, pred], caption = ['Input', 'Prediction'], width = 256)
+  st.image([img, pred], caption = ['Input', 'Prediction'], width = 512
 except:
   pass
